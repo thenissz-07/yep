@@ -1,8 +1,16 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { LessonContent } from "../types";
+import { LessonContent } from "../types.ts";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const getApiKey = () => {
+  try {
+    return (process && process.env && process.env.API_KEY) || '';
+  } catch (e) {
+    return '';
+  }
+};
+
+const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 export const generateLessonContent = async (day: number, topic: string): Promise<LessonContent> => {
   const prompt = `Generate an English lesson for a software developer aiming to move from A2 to B1 level. 

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Lesson, UserProgress } from '../types';
+import { Lesson, UserProgress } from '../types.ts';
 import { CheckCircle, Lock, Play, TrendingUp, BookOpen, MessageSquare } from 'lucide-react';
 
 interface DashboardProps {

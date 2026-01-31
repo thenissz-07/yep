@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { Lesson, UserProgress } from './types';
-import { Dashboard } from './components/Dashboard';
-import { LessonView } from './components/LessonView';
-import { ChatPractice } from './components/ChatPractice';
+import { Lesson, UserProgress } from './types.ts';
+import { Dashboard } from './components/Dashboard.tsx';
+import { LessonView } from './components/LessonView.tsx';
+import { ChatPractice } from './components/ChatPractice.tsx';
 import { Terminal, Github, Trophy, Calendar } from 'lucide-react';
 
 const INITIAL_LESSONS: Lesson[] = [
@@ -12,10 +12,8 @@ const INITIAL_LESSONS: Lesson[] = [
   { id: '3', day: 3, title: 'Debugging the Past', description: 'Past simple vs Past continuous for error logs.', level: 'B1', topic: 'Past Logs', status: 'locked' },
   { id: '4', day: 4, title: 'Predicting Outputs', description: 'Future with "will" and "going to" for app outcomes.', level: 'B1', topic: 'Project Roadmap', status: 'locked' },
   { id: '5', day: 5, title: 'HTML Semantics', description: 'Describing structure using relative clauses.', level: 'B1', topic: 'Web Structure', status: 'locked' },
-  // ... more lessons would be defined here up to 30
 ];
 
-// Add mock lessons for 6-30 to fill the dashboard
 for (let i = 6; i <= 30; i++) {
   INITIAL_LESSONS.push({
     id: i.toString(),
@@ -69,7 +67,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setView('dashboard')}>
@@ -80,7 +77,7 @@ const App: React.FC = () => {
           </div>
           
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-            <button className="hover:text-white transition-colors">Daily Plan</button>
+            <button className="hover:text-white transition-colors" onClick={() => setView('dashboard')}>Daily Plan</button>
             <button className="hover:text-white transition-colors" onClick={() => setView('chat')}>AI Coach</button>
             <button className="hover:text-white transition-colors">Vocabulary Bank</button>
           </div>
@@ -95,7 +92,6 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="flex-1 py-10 px-4 md:px-8">
         {view === 'dashboard' && (
           <Dashboard 
@@ -117,7 +113,6 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-slate-800 py-8 bg-slate-900/50">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
           <div className="flex items-center space-x-4 mb-4 md:mb-0">

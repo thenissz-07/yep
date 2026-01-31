@@ -18,7 +18,21 @@
         .font-mono {
             font-family: 'Fira Code', monospace;
         }
+        /* Fallback for potential blank page during loading */
+        #root:empty::before {
+            content: 'Loading accelerator...';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #64748b;
+            font-size: 1.25rem;
+        }
     </style>
+    <script>
+        // Simple shim for process.env which might be missing in plain browser ESM
+        window.process = window.process || { env: {} };
+    </script>
 <script type="importmap">
 {
   "imports": {

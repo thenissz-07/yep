@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { Lesson, LessonContent } from '../types';
-import { generateLessonContent } from '../services/geminiService';
+import { Lesson, LessonContent } from '../types.ts';
+import { generateLessonContent } from '../services/geminiService.ts';
 import { ArrowLeft, Loader2, CheckCircle2, AlertCircle, Code2 } from 'lucide-react';
 
 interface LessonViewProps {
@@ -71,7 +71,6 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onBack, onComple
       </button>
 
       <div className="space-y-12">
-        {/* Header */}
         <header>
           <div className="flex items-center space-x-3 mb-2">
             <span className="bg-indigo-500/20 text-indigo-400 text-xs font-bold px-3 py-1 rounded-full">
@@ -84,7 +83,6 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onBack, onComple
           <p className="text-lg text-slate-300 leading-relaxed">{lesson.description}</p>
         </header>
 
-        {/* Content Sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <section className="bg-slate-800/40 border border-slate-700/50 p-6 rounded-2xl">
             <h3 className="text-xl font-bold text-indigo-400 mb-4">Grammar Focus</h3>
@@ -111,7 +109,6 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onBack, onComple
           </p>
         </section>
 
-        {/* Code Section */}
         <section className="space-y-4">
           <h3 className="text-xl font-bold text-orange-400 flex items-center">
             <Code2 size={24} className="mr-2" />
@@ -127,7 +124,6 @@ export const LessonView: React.FC<LessonViewProps> = ({ lesson, onBack, onComple
           </p>
         </section>
 
-        {/* Quiz Section */}
         <section className="bg-indigo-900/10 border border-indigo-500/20 p-8 rounded-2xl">
           <h3 className="text-2xl font-bold text-white mb-6">Quick Quiz</h3>
           
