@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { Dashboard } from './components/Dashboard.tsx';
-import { LessonView } from './components/LessonView.tsx';
-import { ChatPractice } from './components/ChatPractice.tsx';
+import { Dashboard } from './components/Dashboard.js';
+import { LessonView } from './components/LessonView.js';
+import { ChatPractice } from './components/ChatPractice.js';
 import { Terminal, Github, Trophy, Calendar } from 'lucide-react';
 
 const INITIAL_LESSONS = [
@@ -19,9 +19,9 @@ for (let i = 6; i <= 30; i++) {
     day: i,
     title: `Step ${i}: Advanced Dev Flow`,
     description: `Leveling up your English communication for Day ${i}.`,
-    level: 'B1' as const,
+    level: 'B1',
     topic: 'Continuous Improvement',
-    status: 'locked' as const
+    status: 'locked'
   });
 }
 
@@ -55,8 +55,8 @@ const App = () => {
     });
 
     setLessons(prev => prev.map(l => {
-      if (l.id === id) return { ...l, status: 'completed' as const };
-      if (parseInt(l.id) === parseInt(id) + 1) return { ...l, status: 'available' as const };
+      if (l.id === id) return { ...l, status: 'completed' };
+      if (parseInt(l.id) === parseInt(id) + 1) return { ...l, status: 'available' };
       return l;
     }));
 
@@ -65,7 +65,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0f172a]">
+    <div className="min-h-screen flex flex-col">
       <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => setView('dashboard')}>
@@ -78,6 +78,7 @@ const App = () => {
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
             <button className="hover:text-white transition-colors" onClick={() => setView('dashboard')}>Daily Plan</button>
             <button className="hover:text-white transition-colors" onClick={() => setView('chat')}>AI Coach</button>
+            <button className="hover:text-white transition-colors">Vocabulary Bank</button>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -115,9 +116,11 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
           <div className="flex items-center space-x-4 mb-4 md:mb-0">
             <Calendar size={18} />
-            <span>A2 to B1 Accelerator • 30 Day Plan</span>
+            <span>Target: B1 Proficiency in 30 Days</span>
           </div>
           <div className="flex items-center space-x-6">
+            <a href="#" className="hover:text-indigo-400 transition-colors">Support</a>
+            <a href="#" className="hover:text-indigo-400 transition-colors">Documentation</a>
             <a href="https://github.com" target="_blank" className="hover:text-white transition-colors">
               <Github size={20} />
             </a>

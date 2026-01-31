@@ -38,7 +38,7 @@ export const Dashboard = ({ lessons, progress, onSelectLesson, onStartChat }) =>
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold mb-6 flex items-center text-white">
+        <h2 className="text-2xl font-bold mb-6 flex items-center">
           <Play className="mr-2 text-indigo-500" fill="currentColor" size={20} />
           Your 30-Day B1 Accelerator
         </h2>
@@ -52,27 +52,33 @@ export const Dashboard = ({ lessons, progress, onSelectLesson, onStartChat }) =>
                   ? 'opacity-60 cursor-not-allowed' 
                   : lesson.status === 'completed'
                     ? 'border-green-500/30 bg-green-500/5 cursor-pointer'
-                    : 'lesson-card-active cursor-pointer shadow-lg shadow-indigo-500/10'
+                    : 'lesson-card-active cursor-pointer'
               }`}
             >
               <div className="flex justify-between items-start mb-3">
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                <span className={`text-xs font-bold px-2 py-1 rounded-md ${
                   lesson.status === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-slate-700 text-slate-300'
                 }`}>
                   DAY {lesson.day}
                 </span>
                 {lesson.status === 'completed' ? (
-                  <CheckCircle className="text-green-500" size={16} />
+                  <CheckCircle className="text-green-500" size={18} />
                 ) : lesson.status === 'locked' ? (
-                  <Lock className="text-slate-600" size={16} />
+                  <Lock className="text-slate-600" size={18} />
                 ) : null}
               </div>
-              <h4 className="font-semibold text-slate-100 line-clamp-2 text-sm">
+              <h4 className="font-semibold text-slate-100 line-clamp-2">
                 {lesson.title}
               </h4>
-              <p className="text-[10px] text-slate-400 mt-2 line-clamp-2">
+              <p className="text-xs text-slate-400 mt-2 line-clamp-2">
                 {lesson.description}
               </p>
+              
+              {lesson.status === 'available' && (
+                <div className="mt-4 flex justify-end">
+                   <div className="text-xs bg-indigo-500 text-white px-3 py-1 rounded-full">Start Now</div>
+                </div>
+              )}
             </div>
           ))}
         </div>

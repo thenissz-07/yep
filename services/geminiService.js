@@ -2,9 +2,9 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 export const generateLessonContent = async (day, topic) => {
-  // Initialize AI client right before making an API call to ensure it always uses the most up-to-date API key.
+  // Initialize AI client right before making an API call.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  
+
   const prompt = `Generate an English lesson for a software developer aiming to move from A2 to B1 level. 
   This is Day ${day} of a 30-day plan. The topic is: ${topic}.
   The lesson must include:
@@ -15,7 +15,7 @@ export const generateLessonContent = async (day, topic) => {
   5. 3 multiple-choice quiz questions.`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-3-pro-preview', // Using pro model for complex text tasks involving coding and pedagogical structure.
+    model: 'gemini-3-pro-preview',
     contents: prompt,
     config: {
       responseMimeType: "application/json",
@@ -59,7 +59,7 @@ export const generateLessonContent = async (day, topic) => {
 export const getConversationFeedback = async (history) => {
   // Initialize AI client right before making an API call.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  
+
   const response = await ai.models.generateContent({
     model: 'gemini-3-pro-preview',
     contents: { parts: [{ text: "Evaluate the user's English in this conversation. Provide 3 specific tips for B1 improvement. Keep it encouraging." }, ...history.flatMap(h => h.parts)] },
@@ -73,7 +73,7 @@ export const getConversationFeedback = async (history) => {
 export const generatePerformanceSummary = async (score, total, lessonContent) => {
   // Initialize AI client right before making an API call.
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  
+
   const prompt = `Based on a quiz score of ${score}/${total} for a lesson on "${lessonContent.grammar}", provide a concise performance summary for a developer learning English. 
   Highlight strengths based on the vocabulary used: ${lessonContent.vocabulary.join(', ')}.
   Suggest specific areas for review (grammar or specific words) to reach B1 level. 
