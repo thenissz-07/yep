@@ -4,29 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevEnglish A2-B1 Accelerator</title>
+    <title>DevEnglish A2-B1 Accelerator (Python Edition)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script>
-        window.process = window.process || { env: {} };
-    </script>
-<script type="importmap">
+    
+    <!-- PyScript setup -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+    <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/",
     "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react/": "https://esm.sh/react@^19.2.4/"
   }
 }
 </script>
 </head>
-<body>
+<body class="bg-[#0f172a] text-[#f8fafc]">
+    <div id="loading-overlay" class="fixed inset-0 z-[100] bg-slate-900 flex flex-col items-center justify-center space-y-4">
+        <div class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-slate-400 font-mono text-sm">Initializing Python Engine...</p>
+    </div>
+
     <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
+
+    <!-- JS Bridge for Gemini API (Python will call these) -->
+    <script type="module">
+        import { GoogleGenAI } from "@google/genai";
+        
+        window.getGeminiResponse = async (prompt, systemInstruction = "") => {
+            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+            const response = await ai.models.generateContent({
+                model: 'gemini-3-flash-preview',
+                contents: prompt,
+                config: { 
+                    systemInstruction,
+                    responseMimeType: prompt.includes("JSON") ? "application/json" : "text/plain"
+                }
+            });
+            return response.text;
+        };
+
+        window.hideLoading = () => {
+            document.getElementById('loading-overlay').classList.add('hidden');
+        };
+    </script>
+
+    <!-- Python entry point configuration -->
+    <py-config>
+        [[fetch]]
+        files = ["main.py", "components.py", "state.py"]
+    </py-config>
+    <script type="py" src="main.py" config="py-config"></script>
 </body>
 </html>
