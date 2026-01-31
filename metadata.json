@@ -1,0 +1,7 @@
+{
+  "name": "DevEnglish A2-B1 Accelerator",
+  "description": "A high-intensity, 30-day English learning platform designed for developers to leap from A2 to B1 level using technical contexts like HTML and Python.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
