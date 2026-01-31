@@ -14,10 +14,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ lessons, progress, onSelec
   const completionRate = Math.round((progress.completedLessons.length / 30) * 100);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-8 animate-in fade-in duration-700">
+    <div className="max-w-6xl mx-auto p-6 space-y-8 animate-fade-in">
       {/* Header stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl flex items-center space-x-4">
+        <div className="card-glass p-6 flex items-center space-x-4">
           <div className="bg-blue-500/20 p-3 rounded-xl">
             <TrendingUp className="text-blue-400" />
           </div>
@@ -26,7 +26,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ lessons, progress, onSelec
             <h3 className="text-2xl font-bold">{completionRate}%</h3>
           </div>
         </div>
-        <div className="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl flex items-center space-x-4">
+        <div className="card-glass p-6 flex items-center space-x-4">
           <div className="bg-green-500/20 p-3 rounded-xl">
             <BookOpen className="text-green-400" />
           </div>
@@ -35,8 +35,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ lessons, progress, onSelec
             <h3 className="text-2xl font-bold">{progress.completedLessons.length} / 30</h3>
           </div>
         </div>
-        <div className="bg-orange-500/20 border border-orange-500/50 p-6 rounded-2xl flex items-center space-x-4 cursor-pointer hover:bg-orange-500/30 transition-colors" onClick={onStartChat}>
-          <div className="bg-orange-500/20 p-3 rounded-xl">
+        <div className="card-glass p-6 flex items-center space-x-4 cursor-pointer hover:bg-orange-500/10 border-orange-500/20 group" onClick={onStartChat}>
+          <div className="bg-orange-500/20 p-3 rounded-xl group-hover:scale-110 transition-transform">
             <MessageSquare className="text-orange-400" />
           </div>
           <div>
@@ -57,12 +57,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ lessons, progress, onSelec
             <div 
               key={lesson.id}
               onClick={() => lesson.status !== 'locked' && onSelectLesson(lesson)}
-              className={`relative p-5 rounded-xl border transition-all duration-300 group ${
+              className={`relative p-5 card-glass ${
                 lesson.status === 'locked' 
-                  ? 'bg-slate-900/50 border-slate-800 opacity-60 cursor-not-allowed' 
+                  ? 'opacity-60 cursor-not-allowed' 
                   : lesson.status === 'completed'
-                    ? 'bg-green-500/10 border-green-500/30 hover:bg-green-500/20 cursor-pointer'
-                    : 'bg-slate-800 border-slate-700 hover:border-indigo-500 hover:scale-[1.02] cursor-pointer'
+                    ? 'border-green-500/30 bg-green-500/5 cursor-pointer'
+                    : 'lesson-card-active cursor-pointer'
               }`}
             >
               <div className="flex justify-between items-start mb-3">
@@ -77,7 +77,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ lessons, progress, onSelec
                   <Lock className="text-slate-600" size={18} />
                 ) : null}
               </div>
-              <h4 className="font-semibold text-slate-100 group-hover:text-indigo-400 transition-colors line-clamp-2">
+              <h4 className="font-semibold text-slate-100 line-clamp-2">
                 {lesson.title}
               </h4>
               <p className="text-xs text-slate-400 mt-2 line-clamp-2">
@@ -86,7 +86,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ lessons, progress, onSelec
               
               {lesson.status === 'available' && (
                 <div className="mt-4 flex justify-end">
-                   <div className="text-xs bg-indigo-500 text-white px-3 py-1 rounded-full animate-pulse">Start Now</div>
+                   <div className="text-xs bg-indigo-500 text-white px-3 py-1 rounded-full">Start Now</div>
                 </div>
               )}
             </div>

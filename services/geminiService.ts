@@ -74,3 +74,20 @@ export const getConversationFeedback = async (history: { role: string, parts: { 
   });
   return response.text || "Keep practicing!";
 };
+
+export const generatePerformanceSummary = async (score: number, total: number, lessonContent: LessonContent): Promise<string> => {
+  const prompt = `Based on a quiz score of ${score}/${total} for a lesson on "${lessonContent.grammar}", provide a concise performance summary for a developer learning English. 
+  Highlight strengths based on the vocabulary used: ${lessonContent.vocabulary.join(', ')}.
+  Suggest specific areas for review (grammar or specific words) to reach B1 level. 
+  Keep it under 100 words and use encouraging, professional language.`;
+
+  const response = await ai.models.generateContent({
+    model: 'gemini-3-flash-preview',
+    contents: prompt,
+    config: {
+      systemInstruction: "You are an English pedagogical coach specializing in technical English for software engineers."
+    }
+  });
+  
+  return response.text || "Great job completing the lesson!";
+};
